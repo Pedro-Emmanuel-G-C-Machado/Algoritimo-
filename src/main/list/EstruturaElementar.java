@@ -1,5 +1,6 @@
 package list;
 public interface EstruturaElementar {
+    int length = 0;
     //Métodos Consultivos
     public boolean buscaElemento(int valor);
     public int buscaIndice(int valor);

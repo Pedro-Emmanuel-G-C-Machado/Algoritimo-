@@ -5,21 +5,32 @@ import list.EstruturaElementar;
 public class ListaLigada implements EstruturaElementar{
 
     private No cabeca;
+    private No proximNo;
 
     public ListaLigada() {
+        cabeca = null; 
+        proximNo = null; 
+        
 
     }
 
     @Override
     public boolean buscaElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscaElemento'");
+        No atual = cabeca;
+    
+        while (atual != null) {
+            if(atual.getValor() == valor){
+                return true;
+            }
+            atual = atual.getProximo();
+        }
+        return false;
     }
-
+    
     @Override
     public int buscaIndice(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscaIndice'");
+     int posicao; 
+
     }
 
     @Override
@@ -48,20 +59,29 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void insereElemento(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElemento'");
+        
+   
+
     }
 
     @Override
     public void insereElementoPosicao(int valor, int buscaIndice) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereElementoPosicao'");
+        
     }
 
     @Override
     public void insereInicio(int valor) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereInicio'");
+
+        if (cabeca == null){
+            cabeca = new No(valor); 
+        }
+        else{
+            No n = new No(valor);
+            n.setProximo(cabeca);
+        }     
+
     }
 
     @Override
