@@ -29,7 +29,10 @@ public class ListaLigada implements EstruturaElementar{
     
     @Override
     public int buscaIndice(int valor) {
-     int posicao; 
+
+        
+
+    return 0; 
 
     }
 
@@ -72,7 +75,6 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void insereInicio(int valor) {
-        // TODO Auto-generated method stub
 
         if (cabeca == null){
             cabeca = new No(valor); 
@@ -86,8 +88,17 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void insereFim(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'insereFim'");
+        if(proximNo == null){
+          proximNo = new No(valor); 
+
+        }
+        else{
+            No n = proximNo;
+            while(n.getProximo() != null){
+                n = n.getProximo();
+            }
+            n.setProximo(new No(valor));
+        }
     }
 
     @Override
@@ -104,14 +115,23 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void removeInicio() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeInicio'");
+        if(cabeca != null ){
+            cabeca = cabeca.getProximo();
+        }
     }
 
     @Override
-    public void removeFim() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeFim'");
-    }
+    public void removeFim()  {
+      if(proximNo == null){
+        return;
+      }
+      if(proximNo.getProximo() == null){
+        proximNo = null; 
+
+      }
+      else{
+        proximNo.setProximo(proximNo);
+      }
     
+    }
 }
