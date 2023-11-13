@@ -1,17 +1,16 @@
 package linked;
 
+import java.util.Scanner;
+
 import list.EstruturaElementar;
 
 public class ListaLigada implements EstruturaElementar{
 
     private No cabeca;
-    private No proximNo;
+    
 
     public ListaLigada() {
         cabeca = null; 
-        proximNo = null; 
-        
-
     }
 
     @Override
@@ -29,23 +28,55 @@ public class ListaLigada implements EstruturaElementar{
     
     @Override
     public int buscaIndice(int valor) {
+        No atual = cabeca;
+        int contador = 0;  
+        while (atual != null) {
+            if(contador == valor){
+                return atual.getValor();
+            }
+            atual = atual.getProximo();
+            contador ++; 
+        }
+        return -1;
+    }
+    
 
         
+ 
 
-    return 0; 
-
-    }
+    
 
     @Override
     public int minimo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'minimo'");
+        No atual = cabeca;
+        int minimo = cabeca.getValor();
+        
+
+         while (atual != null) {
+            if(atual.getValor() < minimo){
+                minimo = atual.getValor();
+            }
+            atual = atual.getProximo();
+        }
+        return minimo;
+
     }
+        
+    
 
     @Override
     public int maximo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'maximo'");
+           No atual = cabeca;
+        int maximo = cabeca.getValor();
+        
+
+         while (atual != null) {
+            if(atual.getValor() > maximo){
+                maximo = atual.getValor();
+            }
+            atual = atual.getProximo();
+        }
+        return maximo;
     }
 
     @Override
@@ -62,15 +93,16 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void insereElemento(int valor) {
-        
-   
+        insereInicio(valor);
 
-    }
+        
+}
 
     @Override
     public void insereElementoPosicao(int valor, int buscaIndice) {
-        // TODO Auto-generated method stub
-        
+        insereElemento(valor);
+        buscaIndice(0);
+
     }
 
     @Override
@@ -82,36 +114,78 @@ public class ListaLigada implements EstruturaElementar{
         else{
             No n = new No(valor);
             n.setProximo(cabeca);
+            cabeca = n; 
         }     
 
     }
 
     @Override
     public void insereFim(int valor) {
-        if(proximNo == null){
-          proximNo = new No(valor); 
-
+        No novo = new No(valor);
+        if(cabeca == null){
+            cabeca = novo;
+            return;
         }
-        else{
-            No n = proximNo;
-            while(n.getProximo() != null){
-                n = n.getProximo();
+        No andandoNo = cabeca;
+        while(andandoNo != null){
+            if(andandoNo.getProximo() == null){
+                andandoNo.setProximo(novo);
+                return;
             }
-            n.setProximo(new No(valor));
+            andandoNo = andandoNo.getProximo();
+            
         }
     }
 
     @Override
     public void remove(int valor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+          if(cabeca == null){
+            return;
+        }
+           No atual = cabeca;
+           if(cabeca.getValor() == valor ){
+            removeInicio();
+            return;
+           }
+          
+        while (atual != null) {
+            if(atual.getProximo() == null){
+                break;
+            }
+            if(atual.getProximo().getValor() == valor){
+                atual.setProximo(atual.getProximo().getProximo());
+                return;
+            }
+            atual = atual.getProximo();
+        
+        }
+  
     }
+    
 
     @Override
     public void removeIndice(int indice) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeIndice'");
+        No anterior = null;
+         No atual = cabeca;
+        int contador = 0;  
+        while (atual != null) {
+            if(contador == indice){
+                cabeca = atual.getProximo();
+            }
+            else{
+                anterior.setProximo(atual.getProximo());
+            }
+
+            anterior = atual;
+            atual = atual.getProximo();
+            contador ++; 
+        }
+        return;
     }
+    
+    
+       
+    
 
     @Override
     public void removeInicio() {
@@ -122,16 +196,22 @@ public class ListaLigada implements EstruturaElementar{
 
     @Override
     public void removeFim()  {
-      if(proximNo == null){
-        return;
-      }
-      if(proximNo.getProximo() == null){
-        proximNo = null; 
+        if(cabeca == null){
+            return;
+        }
+           No atual = cabeca;
+          
+        while (atual != null) {
+            if(atual.getProximo() == null){
+                break;
+            }
+            if(atual.getProximo().getProximo() == null){
+                atual.setProximo(null);
+            }
+            atual = atual.getProximo();
+        
+        }
+  
 
-      }
-      else{
-        proximNo.setProximo(proximNo);
-      }
-    
     }
 }
